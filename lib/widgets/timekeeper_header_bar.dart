@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../helpers/date_helper.dart';
 
@@ -17,11 +18,12 @@ class TimekeeperHeaderBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                size: 24,
-              )),
+            onPressed: () {},
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 24,
+            ),
+          ),
           Text(
             "${DateHelper.getMonthName(monthNumber)}  $year",
             style: const TextStyle(

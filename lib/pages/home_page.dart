@@ -10,8 +10,13 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          children: const [
-            TimekeeperHeader(showTimekeeperHeaderBar: true),
+          children: [
+            TimekeeperHeader(
+              showTimekeeperHeaderBar: true,
+              customTimekeeperHeaderBar: (DateTime dateTime) => null,
+              currentDate: DateTime.now(),
+              selectedDate: (DateTime dateTime) {},
+            ),
           ],
         ),
       ),
