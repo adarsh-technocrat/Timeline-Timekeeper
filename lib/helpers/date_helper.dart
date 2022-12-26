@@ -3,6 +3,7 @@ class DateHelper {
 
   static Map<String, int> getAllDates() {
     DateTime now = DateTime.now();
+
     int index = 0;
     Map<String, int> dates = {};
 

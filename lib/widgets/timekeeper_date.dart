@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -20,6 +22,8 @@ class TimekeeperDate extends StatefulWidget {
   final TextStyle selectedWeekDayStyle;
   final TextStyle unSelectedWeekDayTextStyle;
   final TextStyle disableWeekDayTextStyle;
+  final Map<String, int> listOfDates;
+  final Function() onEndReach;
 
   const TimekeeperDate(
       {super.key,
@@ -37,7 +41,9 @@ class TimekeeperDate extends StatefulWidget {
       required this.curentWeekDayTextStyle,
       required this.selectedWeekDayStyle,
       required this.unSelectedWeekDayTextStyle,
-      required this.disableWeekDayTextStyle});
+      required this.disableWeekDayTextStyle,
+      required this.listOfDates,
+      required this.onEndReach});
 
   @override
   State<TimekeeperDate> createState() => _TimekeeperDateState();
@@ -49,6 +55,7 @@ class _TimekeeperDateState extends State<TimekeeperDate> {
       ItemPositionsListener.create();
 
   DateTime? selectedDate;
+  Timer? timer;
 
   @override
   void initState() {
@@ -58,11 +65,24 @@ class _TimekeeperDateState extends State<TimekeeperDate> {
           index: DateHelper.getIndex(
               DateHelper.removeTimeFromDatetime(dateTime: widget.currentDate)));
     });
+
+    itemPositionsListener.itemPositions.addListener(() {
+      for (var element in itemPositionsListener.itemPositions.value) {
+        if (element.index == DateHelper.getAllDates().length - 1) {
+          if (timer != null) timer?.cancel();
+          timer = Timer(const Duration(milliseconds: 100), () {
+            widget.onEndReach();
+          });
+        }
+      }
+    });
+
     super.initState();
   }
 
   @override
   void dispose() {
+    timer?.cancel();
     super.dispose();
   }
 
@@ -73,9 +93,10 @@ class _TimekeeperDateState extends State<TimekeeperDate> {
       child: ScrollablePositionedList.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        itemCount: DateHelper.getAllDates().length,
+        itemCount: widget.listOfDates.length,
         itemPositionsListener: itemPositionsListener,
         itemScrollController: itemScrollController,
+        minCacheExtent: 9999,
         itemBuilder: (context, index) => DateCard(
           onTap: (dateTime) {
             setState(() {
@@ -90,7 +111,7 @@ class _TimekeeperDateState extends State<TimekeeperDate> {
               dateTime:
                   DateHelper.removeTimeFromDatetime(dateTime: selectedDate!)),
           dateItem: DateHelper.convertStringToDateTime(
-              dateTime: DateHelper.getAllDates().keys.toList()[index]),
+              dateTime: widget.listOfDates.keys.toList()[index]),
           disablePreviousDate: widget.disablePreviousDate,
           curentDateDecoration: widget.curentDateDecoration,
           curentDateTextStyle: widget.curentDateTextStyle,

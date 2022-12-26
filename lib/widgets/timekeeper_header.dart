@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timeline_timekeeper/constants/constants.dart';
+import 'package:timeline_timekeeper/helpers/date_helper.dart';
 import 'package:timeline_timekeeper/helpers/ui_helper.dart';
 import 'package:timeline_timekeeper/widgets/timekeeper_date.dart';
 import 'package:timeline_timekeeper/widgets/timekeeper_header_bar.dart';
@@ -124,6 +125,10 @@ class _TimekeeperHeaderState extends State<TimekeeperHeader> {
             unSelectedWeekDayTextStyle: UIHelper.textStyle(
                 fontColor: Constants.kDateCardColor,
                 fontWeight: FontWeight.normal),
+            listOfDates: DateHelper.getAllDates(),
+            onEndReach: () {
+              print("This is the Endlist");
+            },
           ),
         ],
       ),
