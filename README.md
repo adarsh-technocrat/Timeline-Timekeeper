@@ -1,16 +1,10 @@
-# timeline_timekeeper
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/adarsh-technocrat/Timeline-Timekeeper">
+    <img src="https://user-images.githubusercontent.com/47661086/209548464-64b4ef5c-fff8-46f9-a59e-4db9ecced1df.png" alt="Logo" width="550" height="150">
+  </a>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
